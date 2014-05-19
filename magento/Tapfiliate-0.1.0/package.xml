@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Tapfiliate</name>
+    <version>0.1.0</version>
+    <stability>devel</stability>
+    <license>0.3osl</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Integrate the Tapfiliate tracking script in your shop</summary>
+    <description>Integrate the Tapfiliate tracking script in the bottom of the webpage.</description>
+    <notes>Integrate the Tapfiliate tracking script in your shop</notes>
+    <authors><author><name>Cedcoss</name><user>Cedcoss</user><email>developer@cedcoss.com</email></author></authors>
+    <date>2014-05-19</date>
+    <time>13:20:21</time>
+    <contents><target name="magelocal"><dir name="Cedcoss"><dir name="Tapfiliate"><dir name="Helper"><file name="Data.php" hash="1eacb8f95b3cd7f89ce77f5eb37d4daa"/></dir><dir name="etc"><file name="config.xml" hash="a27e4677db5edc6c7cadf53536996c44"/><file name="system.xml" hash="11ef2d239a308ee0a449ce14b220bc0d"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Cedcoss_Tapfiliate.xml" hash="91b082b2ebb9b551c933cb2f751fc986"/></dir></target><target name="magedesign"><dir name="frontend"><dir name="default"><dir name="default"><dir name="layout"><file name="tapfiliate.xml" hash="892c3a8e0abe3db8015737ddc0389d63"/></dir><dir name="template"><dir name="tapfiliate"><file name="tapfiliate.phtml" hash="234305d7b26864d28a35fdd3d4bd82c9"/></dir></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.4.0</min><max>5.5.0</max></php></required></dependencies>
+</package>

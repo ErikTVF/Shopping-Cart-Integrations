@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <tapfiliate translate="label" module="tapfiliate">
+            <label>Tapfiliate</label>
+            <sort_order>100</sort_order>
+        </tapfiliate>
+    </tabs>
+    <sections>
+        <tapfiliate translate="label" module="tapfiliate">
+            <label>Tapfiliate Config</label>
+            <tab>tapfiliate</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <tapfiliate_group translate="label" module="tapfiliate">
+                    <label>Tapfiliate Config</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <tapfiliate_input translate="label">
+                            <label>Account Id: </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tapfiliate_input>
+                        <tapfiliate_success translate="label">
+                            <label>Success Page: </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Add the checkout success page link(excluding base url) here e.g. "http://yourstore/index.php/"=>Base url "checkout/onepage/success/" => Success link.</comment>
+                        </tapfiliate_success>
+                    </fields>
+                </tapfiliate_group>
+            </groups>
+        </tapfiliate>
+    </sections>
+</config>

@@ -1,0 +1,31 @@
+<?php
+	$ac_id=Mage::getStoreConfig('tapfiliate/tapfiliate_group/tapfiliate_input');
+	if($ac_id!=''){
+	?>
+	<script type="text/javascript">
+	  var _tap = _tap || {};
+  	  _tap.account = '<?php echo $ac_id;?>';
+	  <?php 
+	  $success_link=Mage::getStoreConfig('tapfiliate/tapfiliate_group/tapfiliate_success');
+	  
+	  if($success_link!=''){
+	  
+	  $success_url=Mage::getBaseUrl().Mage::getStoreConfig('tapfiliate/tapfiliate_group/tapfiliate_success');
+	  
+	  if($this->helper('core/url')->getCurrentUrl()==$success_url)
+	  {
+			$order = Mage::getModel('sales/order')->loadByIncrementId(Mage::getSingleton('checkout/session')->getLastRealOrderId()); 
+		?>
+	  _tap.transaction_id = '<?php echo $order['increment_id']  ?>';
+	  _tap.transaction_ammount = '<?php echo $order['grand_total']  ?>';
+	  <?php }}?>
+	  (function() {
+	      var tapjs = document.createElement('script'); tapjs.type = 'text/javascript'; tapjs.async = true;
+	      tapjs.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'tapfiliate.com/tap.js';
+	      var s = document.getElementsByTagName('script')[0];
+	      s.parentNode.insertBefore(tapjs, s);
+	  })();
+	</script>
+<?php 
+	}
+?>

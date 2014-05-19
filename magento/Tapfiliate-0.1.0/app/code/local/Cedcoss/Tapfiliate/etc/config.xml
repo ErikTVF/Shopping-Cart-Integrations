@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+
+<config>
+
+  <modules>
+
+    <Cedcoss_Tapfiliate>
+
+      <version>0.1.0</version>
+
+    </Cedcoss_Tapfiliate>
+
+  </modules>
+
+  <frontend>
+
+    <routers>
+
+      <tapfiliate>
+
+        <use>standard</use>
+
+         <args>
+
+            <module>Cedcoss_Tapfiliate</module>
+
+            <frontName>tapfiliate</frontName>
+
+          </args>
+
+      </tapfiliate>
+
+    </routers>
+
+     
+        <layout>
+            <updates>
+                <tapfiliate>
+                    <file>tapfiliate.xml</file>
+                </tapfiliate>
+            </updates>
+        </layout>
+    
+
+  </frontend>
+
+  <global>
+
+    <helpers>
+
+      <tapfiliate>
+
+        <class>Cedcoss_Tapfiliate_Helper</class>
+
+      </tapfiliate>
+
+    </helpers>
+
+     <blocks>
+
+       <tapfiliate>
+
+                     <class>Cedcoss_Tapfiliate_Block</class>
+
+       </tapfiliate>
+
+     </blocks>
+     <models>
+            <tapfiliate>
+                <class>Cedcoss_Tapfiliate_Model</class>
+            </tapfiliate>
+        </models>
+
+  </global>
+<adminhtml>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <tapfiliate>
+                                        <title>Tapifiliate - All</title>
+                                    </tapfiliate>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</adminhtml>
+<default>
+    <tapfiliate>
+        <tapfiliate_group>               
+            <tapfiliate_success>checkout/onepage/success/</tapfiliate_success>        
+        </tapfiliate_group>       
+    </tapfiliate>
+</default>
+</config>
