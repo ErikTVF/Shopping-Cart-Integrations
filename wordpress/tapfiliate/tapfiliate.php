@@ -3,7 +3,7 @@
 Plugin Name: Tapfiliate
 Plugin URI: http://tapfiliate.com/
 Description: Easily integrate the Tapfiliate tracking code.
-Version: 1.0
+Version: 1.1
 Author: Tapfiliate
 Author URI: http://tapfiliate.com/
 */
@@ -30,6 +30,7 @@ function admin_init_tapfiliate() {
   register_setting('tapfiliate', 'thank_you_page');
   register_setting('tapfiliate', 'query_parameter_transaction_id');
   register_setting('tapfiliate', 'query_parameter_transaction_amount');
+  register_setting('tapfiliate', 'integrate_for');
 }
 
 function admin_menu_tapfiliate() {
@@ -44,31 +45,44 @@ function tapfiliate() {
   global $post;
   $postName = ($post) ? $post->post_name : null;
   $tap_account_id = get_option('tap_account_id');
+  $integrate_for = get_option('integrate_for');
   $thank_you_page = get_option('thank_you_page');
   $query_parameter_transaction_id = get_option('query_parameter_transaction_id');
   $query_parameter_transaction_amount = get_option('query_parameter_transaction_amount');
 ?>
+<script src="//tapfiliate.com/tapfiliate.js" type="text/javascript" async></script>
 <script type="text/javascript">
-  var _tap = _tap || {};
-  _tap.account = '<?php echo $tap_account_id ?>';
-<?php
-  if ($postName == $thank_you_page) {
-    if (isset($_GET[$query_parameter_transaction_id])) {
-      echo "_tap.transaction_id = '$_GET[$query_parameter_transaction_id]';\r\n";
+  window['TapfiliateObject'] = i = 'tap';
+  window[i] = window[i] || function () {
+      (window[i].q = window[i].q || []).push(arguments);
+  };
+
+  tap('create', '<?php echo $tap_account_id ?>');
+  <?php
+    if ($integrate_for == 'wp') {
+      if ($postName == $thank_you_page) {
+        if (isset($_GET[$query_parameter_transaction_id]) && isset($_GET[$query_parameter_transaction_amount])) {
+          echo "tap('transaction', '{$_GET[$query_parameter_transaction_id]}', {$_GET[$query_parameter_transaction_amount]});";
+        }
+      } else {
+        echo "tap('detectClick');";
+      }
+    } elseif ($integrate_for == 'wc') {
+      if (function_exists("is_order_received_page") && is_order_received_page() && isset($_GET['order-received'])) {
+        $order_id  = apply_filters( 'woocommerce_thankyou_order_id', absint( $_GET['order-received'] ) );
+        $order_key = apply_filters( 'woocommerce_thankyou_order_key', empty( $_GET['key'] ) ? '' : wc_clean( $_GET['key'] ) );
+
+        if ( $order_id > 0 ) {
+          $order = new WC_Order( $order_id );
+          if ( $order->order_key != $order_key )
+            unset( $order );
+        }
+        echo "tap('transaction', '{$order->id}', {$order->get_total()});";
+      } else {
+        echo "tap('detectClick');";
+      }
     }
-    if (isset($_GET[$query_parameter_transaction_amount])) {
-      echo "_tap.transaction_ammount = {$_GET[$query_parameter_transaction_amount]};\r\n";
-    } else {
-      echo "_tap.transaction_ammount = 0;\r\n";
-    }
-  }
-?>
-  (function() {
-      var tapjs = document.createElement('script'); tapjs.type = 'text/javascript'; tapjs.async = true;
-      tapjs.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'tapfiliate.com/tap.js';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(tapjs, s);
-  })();
+  ?>
 </script>
 <?php
 }
