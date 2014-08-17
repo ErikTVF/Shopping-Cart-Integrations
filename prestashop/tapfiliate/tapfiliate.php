@@ -9,7 +9,7 @@ class Tapfiliate extends Module
 	{
 		$this->name = 'tapfiliate';
 		$this->tab = 'advertising_marketing';
-		$this->version = '1.0';
+		$this->version = '1.1';
 		$this->author = 'Tapfiliate';
 		$this->displayName = 'Tapfiliate';
 		$this->module_key = 'fd2aaefea84ac1bb512e6f1878d990bj';
