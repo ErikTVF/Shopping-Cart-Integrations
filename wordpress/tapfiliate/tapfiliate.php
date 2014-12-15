@@ -3,7 +3,7 @@
 Plugin Name: Tapfiliate
 Plugin URI: http://tapfiliate.com/
 Description: Easily integrate the Tapfiliate tracking code.
-Version: 1.1
+Version: 1.2
 Author: Tapfiliate
 Author URI: http://tapfiliate.com/
 */
@@ -68,16 +68,18 @@ function tapfiliate() {
         echo "tap('detectClick');";
       }
     } elseif ($integrate_for == 'wc') {
-      if (function_exists("is_order_received_page") && is_order_received_page() && isset($_GET['order-received'])) {
-        $order_id  = apply_filters( 'woocommerce_thankyou_order_id', absint( $_GET['order-received'] ) );
-        $order_key = apply_filters( 'woocommerce_thankyou_order_key', empty( $_GET['key'] ) ? '' : wc_clean( $_GET['key'] ) );
+      if (function_exists("is_order_received_page") && is_order_received_page()) {
+        if (isset($GLOBALS['order-received'])) {
+          $order_id  = apply_filters( 'woocommerce_thankyou_order_id', absint( $GLOBALS['order-received'] ) );
+          $order_key = apply_filters( 'woocommerce_thankyou_order_key', empty( $_GET['key'] ) ? '' : wc_clean( $_GET['key'] ) );
 
-        if ( $order_id > 0 ) {
-          $order = new WC_Order( $order_id );
-          if ( $order->order_key != $order_key )
-            unset( $order );
+          if ( $order_id > 0 ) {
+            $order = new WC_Order( $order_id );
+            if ( $order->order_key != $order_key )
+              unset( $order );
+          }
+          echo "tap('transaction', '{$order->id}', {$order->get_total()});";
         }
-        echo "tap('transaction', '{$order->id}', {$order->get_total()});";
       } else {
         echo "tap('detectClick');";
       }
