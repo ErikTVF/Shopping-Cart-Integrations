@@ -81,10 +81,14 @@ class Tapfiliate extends Module
 		{
 			$conversion_rate = 1;
 
+			$amount = (isset($order->total_paid_tax_excl)) ? $order->total_paid_tax_excl : 0;
+			$shipping = (isset($order->total_shipping_tax_incl)) ? $order->total_shipping_tax_incl : 0;
+			$conversionAmount = $amount - $shipping;
+
 			// Order general information
 			$trans = array(
 				'id' => (int)$order->id,
-				'total' => Tools::ps_round((float)$order->total_paid / (float)$conversion_rate, 2),
+				'total' => Tools::ps_round((float)$conversionAmount / (float)$conversion_rate, 2),
 			);
 
 			$tapfiliate_id = Configuration::get('TAPFILIATE_ID');
