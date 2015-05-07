@@ -61,9 +61,9 @@ function tapfiliate() {
   <?php
     if ($integrate_for == 'wp') {
       if ($postName == $thank_you_page) {
-        if (isset($_GET[$query_parameter_transaction_id]) && isset($_GET[$query_parameter_transaction_amount])) {
-          echo "tap('transaction', '{$_GET[$query_parameter_transaction_id]}', {$_GET[$query_parameter_transaction_amount]});";
-        }
+          $cid = (isset($_GET[$query_parameter_transaction_id]) && !empty($_GET[$query_parameter_transaction_id])) ? "'{$_GET[$query_parameter_transaction_id]}'" : 'null';
+          $cam = (isset($_GET[$query_parameter_transaction_amount]) && !empty($_GET[$query_parameter_transaction_amount])) ? $_GET[$query_parameter_transaction_amount] : 'null';
+          echo "tap('conversion', {$cid}, {$cam});";
       } else {
         echo "tap('detectClick');";
       }
@@ -78,7 +78,7 @@ function tapfiliate() {
             if ( $order->order_key != $order_key )
               unset( $order );
           }
-          echo "tap('transaction', '{$order->id}', {$order->get_total()});";
+          echo "tap('conversion', '{$order->id}', {$order->get_total()});";
         }
       } else {
         echo "tap('detectClick');";

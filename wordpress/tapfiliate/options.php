@@ -44,14 +44,14 @@
 	</td>
 	</tr>
 	<tr valign="top">
-	<th scope="row">Transaction Id Query Parameter:</th>
+	<th scope="row">Optional: Transaction Id Query Parameter:</th>
 	<td>
 		<input type="text" name="query_parameter_transaction_id" value="<?php echo get_option('query_parameter_transaction_id'); ?>" />
 	</td>
 	</tr>
 
 	<tr valign="top">
-	<th scope="row">Transaction Amount Query Parameter:</th>
+	<th scope="row">Optional: Transaction Amount Query Parameter:</th>
 	<td>
 		<input type="text" name="query_parameter_transaction_amount" value="<?php echo get_option('query_parameter_transaction_amount'); ?>" />
 	</td>
